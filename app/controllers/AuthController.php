@@ -59,5 +59,36 @@
             }
             return ['errors' => $errors, 'success' => $success];
         }
+
+        function login(){
+            $errors = [];
+            $success = false;
+
+            if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+                $email = $_POST['email'] ?? '';
+                $password = $_POST['password'] ?? '';
+                if (empty($email)) {
+                    $errors['email'] = "L'email est obligatoire";
+                }
+                if (empty($password)) {
+                    $errors['password'] = "Le mot de passe est obligatoire";
+                }
+                if (empty($errors)) {
+                    $user = $this->userModel->login($email, $password);
+                    if ($user) {
+                        session_start();
+                        $_SESSION['user_id'] = $user['id'];
+                        $_SESSION['email'] = $user['email'];
+                        $_SESSION['firstname'] = $user['first_name'];
+                        $_SESSION['lastname'] = $user['last_name'];
+
+                        $success = true;
+                    } else {
+                        $errors['general'] = "Email ou mot de passe incorrect";
+                    }
+                }
+            }
+            return ['errors' => $errors, 'success' => $success];
+        }
     }
 ?>

@@ -38,6 +38,24 @@
                 return false;
             }
         }
+
+        public function login($email, $password){
+            $sql = "SELECT * FROM users WHERE email = ?";
+            $stmt = $this->db->prepare($sql);
+            $stmt->execute([$email]);
+            $user = $stmt->fetch();
+            if(!$user){
+                return false;
+            }
+
+            if(password_verify($password, $user['password'])){
+                return $user;
+            } else {
+                return false;
+            }
+
+
+        }
     }
 
 ?>
