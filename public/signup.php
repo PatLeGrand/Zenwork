@@ -4,13 +4,9 @@
     $controller = new AuthController();
     $result = $controller->register();
 
-    $error = $result['errors'];
+    $errors = $result['errors'];
     $success = $result['success'];
 
-    if($success){
-        header('Location: welcome.php');
-        exit();
-    }
 ?>
 <!DOCTYPE html>
 <html lang="fr">
@@ -32,15 +28,15 @@
                 <p class="text-4xl font-bold text-white ">Créer un compte</p>
 
                 <p class="text-slate-400 mt-5 mb-5">Etes vous déja inscrit(e)?
-                    <a> Connectez-vous</a>
+                    <a href="login.php"> Connectez-vous</a>
                 </p>
             </div>
 
-            <form method="post" action="welcome.php" class=" flex flex-col gap-4">
+            <form method="post" action="" class=" flex flex-col gap-4">
 
-                <?php if(isset($error['general'])): ?>
+                <?php if(isset($errors['general'])): ?>
                     <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative">
-                        <span class="block sm:inline"><?= $error['general'] ?></span>
+                        <span class="block sm:inline"><?= $errors['general'] ?></span>
                     </div>
                 <?php endif; ?>
 
@@ -51,12 +47,12 @@
                         </label>
                         <input name="firstname"
                                type="text"
-                               class="border  <?= isset($error['firstname']) ? 'border-red-700' :  'border-gray-400' ?> block py-2 w-full rounded focus:outline-none focus:border-teal-500"
+                               class="border  <?= isset($errors['firstname']) ? 'border-red-700' :  'border-gray-400' ?> block py-2 w-full rounded focus:outline-none focus:border-teal-500"
                                placeholder="Prénom"
                                value="<?= htmlspecialchars($_POST['firstname'] ?? '') ?>"
                         >
-                        <?php if(isset($error['firstname'])): ?>
-                            <span class="text-red-700"><?= $error['firstname'] ?></span>
+                        <?php if(isset($errors['firstname'])): ?>
+                            <span class="text-red-700"><?= $errors['firstname'] ?></span>
                         <?php endif; ?>
                     </div>
                     <div class="w-1/2">
@@ -65,12 +61,12 @@
                         </label>
                         <input name="lastname"
                                type="text"
-                               class="border <?= isset($error['lastname']) ? 'border-red-700' :  'border-gray-400' ?> block py-2 w-full rounded focus:outline-none focus:border-teal-500"
+                               class="border <?= isset($errors['lastname']) ? 'border-red-700' :  'border-gray-400' ?> block py-2 w-full rounded focus:outline-none focus:border-teal-500"
                                placeholder="Nom"
                                value="<?= htmlspecialchars($_POST['lastname'] ?? '') ?>"
                         >
-                        <?php if(isset($error['lastname'])): ?>
-                            <span class="text-red-700"><?= $error['lastname'] ?></span>
+                        <?php if(isset($errors['lastname'])): ?>
+                            <span class="text-red-700"><?= $errors['lastname'] ?></span>
                         <?php endif; ?>
                     </div>
                 </div>
@@ -80,12 +76,12 @@
                     </label>
                     <input name="email"
                            type="text"
-                           class="border <?= isset($error['lastname']) ? 'border-red-700' :  'border-gray-400' ?> block py-2 w-full rounded focus:outline-none focus:border-teal-500"
+                           class="border <?= isset($errors['email']) ? 'border-red-700' :  'border-gray-400' ?> block py-2 w-full rounded focus:outline-none focus:border-teal-500"
                            placeholder="Émail"
                            value="<?= htmlspecialchars($_POST['email'] ?? '') ?>"
                     >
-                    <?php if(isset($error['email'])): ?>
-                        <span class="text-red-700"><?= $error['email'] ?></span>
+                    <?php if(isset($errors['email'])): ?>
+                        <span class="text-red-700"><?= $errors['email'] ?></span>
                     <?php endif; ?>
                 </div>
                 <div>
@@ -97,8 +93,8 @@
                            class="border border-gray-400 block py-2 w-full rounded focus:outline-none focus:border-teal-500"
                            placeholder="Entrez votre mot de passe"
                     >
-                    <?php if(isset($error['password'])): ?>
-                        <span class="text-red-700"><?= $error['password'] ?></span>
+                    <?php if(isset($errors['password'])): ?>
+                        <span class="text-red-700"><?= $errors['password'] ?></span>
                     <?php endif; ?>
                 </div>
                 <div>
@@ -111,6 +107,13 @@
                         J'accepte les conditions
                     </label>
                 </div>
+
+                <?php if($success): ?>
+                    <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative">
+                        <span>Incription reussite</span>
+                    </div>
+                <?php endif; ?>
+
 
                 <button type="submit" class="text-white bg-[#3b5998] hover:bg-[#3b5998]/90 focus:ring-4 focus:outline-none focus:ring-[#3b5998]/50 box-border border border-transparent font-medium leading-5 rounded-base text-sm px-4 py-2.5 text-center inline-flex items-center dark:focus:ring-[#3b5998]/55">
                     S'inscrire
