@@ -14,7 +14,7 @@
             $errors = [];
             $success = false;
 
-            if($_SERVER['REQUEST_METHOD'] == 'POST'){
+            if($_SERVER['REQUEST_METHOD'] == 'POST') {
                 $firstname = sanitizeInput($_POST['firstname'] ?? '');
                 $lastname = sanitizeInput($_POST['lastname'] ?? '');
                 $email = sanitizeInput($_POST['email'] ?? '');

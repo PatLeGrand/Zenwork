@@ -1,6 +1,18 @@
 <?php
+    require_once __DIR__. '/../app/controllers/AuthController.php';
 
+    $controller = new AuthController();
+    $result = $controller->register();
+
+    $error = $result['errors'];
+    $success = $result['success'];
+
+    if($success){
+        header('Location: welcome.php');
+        exit();
+    }
 ?>
+<!DOCTYPE html>
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
@@ -24,7 +36,13 @@
                 </p>
             </div>
 
-            <form method="post" action="signup-confirmation.php" class=" flex flex-col gap-4">
+            <form method="post" action="welcome.php" class=" flex flex-col gap-4">
+
+                <?php if(isset($error['general'])): ?>
+                    <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative">
+                        <span class="block sm:inline"><?= $error['general'] ?></span>
+                    </div>
+                <?php endif; ?>
 
                 <div class="flex space-x-3">
                     <div class="w-1/2">
@@ -33,9 +51,13 @@
                         </label>
                         <input name="firstname"
                                type="text"
-                               class="border border-gray-400 block py-2 w-full rounded focus:outline-none focus:border-teal-500"
+                               class="border  <?= isset($error['firstname']) ? 'border-red-700' :  'border-gray-400' ?> block py-2 w-full rounded focus:outline-none focus:border-teal-500"
                                placeholder="Prénom"
+                               value="<?= htmlspecialchars($_POST['firstname'] ?? '') ?>"
                         >
+                        <?php if(isset($error['firstname'])): ?>
+                            <span class="text-red-700"><?= $error['firstname'] ?></span>
+                        <?php endif; ?>
                     </div>
                     <div class="w-1/2">
                         <label for="lastname">
@@ -43,9 +65,13 @@
                         </label>
                         <input name="lastname"
                                type="text"
-                               class="border border-gray-400 block py-2 w-full rounded focus:outline-none focus:border-teal-500"
+                               class="border <?= isset($error['lastname']) ? 'border-red-700' :  'border-gray-400' ?> block py-2 w-full rounded focus:outline-none focus:border-teal-500"
                                placeholder="Nom"
+                               value="<?= htmlspecialchars($_POST['lastname'] ?? '') ?>"
                         >
+                        <?php if(isset($error['lastname'])): ?>
+                            <span class="text-red-700"><?= $error['lastname'] ?></span>
+                        <?php endif; ?>
                     </div>
                 </div>
                 <div>
@@ -54,8 +80,13 @@
                     </label>
                     <input name="email"
                            type="text"
-                           class="border border-gray-400 block py-2 w-full rounded focus:outline-none focus:border-teal-500"
-                           placeholder="Émail">
+                           class="border <?= isset($error['lastname']) ? 'border-red-700' :  'border-gray-400' ?> block py-2 w-full rounded focus:outline-none focus:border-teal-500"
+                           placeholder="Émail"
+                           value="<?= htmlspecialchars($_POST['email'] ?? '') ?>"
+                    >
+                    <?php if(isset($error['email'])): ?>
+                        <span class="text-red-700"><?= $error['email'] ?></span>
+                    <?php endif; ?>
                 </div>
                 <div>
                     <label>
@@ -66,6 +97,9 @@
                            class="border border-gray-400 block py-2 w-full rounded focus:outline-none focus:border-teal-500"
                            placeholder="Entrez votre mot de passe"
                     >
+                    <?php if(isset($error['password'])): ?>
+                        <span class="text-red-700"><?= $error['password'] ?></span>
+                    <?php endif; ?>
                 </div>
                 <div>
                     <input name="condition-term"

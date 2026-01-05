@@ -1,5 +1,5 @@
 <?php
-    require_once "./app/db/database.php";
+    require_once __DIR__ . "/../db/database.php";
     class User{
         private $db;
 
