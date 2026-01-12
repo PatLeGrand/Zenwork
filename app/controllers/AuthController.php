@@ -79,8 +79,8 @@
                         session_start();
                         $_SESSION['user_id'] = $user['id'];
                         $_SESSION['email'] = $user['email'];
-                        $_SESSION['firstname'] = $user['first_name'];
-                        $_SESSION['lastname'] = $user['last_name'];
+                        $_SESSION['first_name'] = $user['first_name'];
+                        $_SESSION['last_name'] = $user['last_name'];
 
                         $success = true;
                     } else {
