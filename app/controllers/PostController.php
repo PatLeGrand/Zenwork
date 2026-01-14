@@ -28,11 +28,14 @@
 
                 $imagePath = null;
                 if (isset($_FILES['image']) && $_FILES['image']['error'] === UPLOAD_ERR_OK) {
-                    $allowedTypes = ['image/jpeg', 'image/png', 'image/gif', 'image/webp'];
+                    $allowedTypes = ['image/jpeg', 'image/jpg', 'image/png', 'image/gif', 'image/webp'];
                     $maxSize = 5 * 1024 * 1024;
 
                     $fileType = $_FILES['image']['type'];
                     $fileSize = $_FILES['image']['size'];
+
+
+
 
                     if(!in_array($fileType, $allowedTypes)) {
                         $errors = 'Le format du fichier n\'est pas valide';

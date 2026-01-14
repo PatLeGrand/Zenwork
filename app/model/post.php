@@ -23,7 +23,8 @@ class Post {
             try {
                 $sql = "SELECT 
                     posts.id, 
-                    posts.content, 
+                    posts.content,
+                    posts.image_url,
                     posts.created_at,
                     users.first_name,
                     users.last_name
