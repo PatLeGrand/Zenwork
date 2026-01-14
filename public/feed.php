@@ -1,4 +1,5 @@
 <?php
+    require_once __DIR__ . '/../app/controllers/PostController.php';
     session_start();
 
     if(!isset($_SESSION['user_id'])){
@@ -7,10 +8,15 @@
 
     }
 
+    $user_id = $_SESSION['user_id'];
     $firstname = $_SESSION['first_name'];
     $lastname = $_SESSION['last_name'];
     $email = $_SESSION['email'];
     $userFullName = $firstname.' '.$lastname;
+
+    $controller = new PostController();
+    $createResult = $controller->createPost('$user_id');
+    $posts = $controller->getPosts()
 ?>
 
 <!DOCTYPE html>
@@ -119,11 +125,15 @@
                 <div class="flex items-start space-x-3">
                     <img src="https://ui-avatars.com/api/?name=<?= $firstname ?>+<?= $lastname ?>&background=3b82f6&color=fff" class="w-12 h-12 rounded-full">
                     <div class="flex-1">
-                            <textarea
-                                    placeholder="Quoi de neuf, <?= $firstname ?> ?"
-                                    class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 resize-none"
-                                    rows="3"
-                            ></textarea>
+                            <form method="POST" action="">
+                                <textarea
+                                        placeholder="Quoi de neuf, <?= $firstname ?> ?"
+                                        class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 resize-none"
+                                        rows="3"
+                                        name="content"
+                                ></textarea>
+                            </form>
+
 
                         <div class="flex items-center justify-between mt-3">
                             <div class="flex space-x-2">

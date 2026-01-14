@@ -1,5 +1,5 @@
 <?php
-    require_once __DIR__. '/../app/db/database.php';
+    require_once __DIR__. '/../db/database.php';
 class Post {
         private $db;
         public function __construct() {
