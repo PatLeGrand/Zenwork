@@ -125,7 +125,7 @@
                 <div class="flex items-start space-x-3">
                     <img src="https://ui-avatars.com/api/?name=<?= $firstname ?>+<?= $lastname ?>&background=3b82f6&color=fff" class="w-12 h-12 rounded-full">
                     <div class="flex-1">
-                            <form method="POST" action="">
+                            <form method="POST" action="" enctype="multipart/form-data">
                                 <?php
                                     if(!empty($createResult['errors'])): ?>
                                         <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-2 rounded mb-3">
@@ -148,7 +148,7 @@
                                 <div class="flex items-center justify-between mt-3">
                                     <div class="flex space-x-2">
                                         <!-- Input file caché -->
-                                        <input type="file" id="image-upload" name="image_url" accept="image/*" class="hidden">
+                                        <input type="file" id="image-upload" name="image" accept="image/*" class="hidden">
 
                                         <!-- Bouton qui déclenche l'input -->
                                         <label for="image-upload" class="p-2 hover:bg-gray-100 rounded-full cursor-pointer" title="Ajouter une image">
@@ -166,6 +166,14 @@
                                     </button>
                                 </div>
                             </form>
+
+                            <!-- Script pour afficher le nom du fichier sélectionné (optionnel) -->
+                            <script>
+                                document.getElementById('image-upload').addEventListener('change', function(e) {
+                                    const fileName = e.target.files[0]?.name || '';
+                                    document.getElementById('file-name').textContent = fileName;
+                                });
+                            </script>
                     </div>
                 </div>
             </div>

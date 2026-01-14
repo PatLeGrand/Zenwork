@@ -8,11 +8,11 @@ class Post {
 
 
         }
-        function create($userid, $content){
+        function create($userid, $content, $imagePath = null){
             try {
-                $sql = "INSERT INTO posts (user_id, content) VALUES (?, ?)";
+                $sql = "INSERT INTO posts (user_id, content, image_url) VALUES (?, ?, ?)";
                 $stmt = $this->db->prepare($sql);
-                $stmt->execute([$userid, $content]);
+                $stmt->execute([$userid, $content, $imagePath]);
                 return true;
             } catch (PDOException $e) {
                 return false;
