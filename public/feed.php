@@ -209,7 +209,9 @@
                             <p class="text-gray-800 leading-relaxed">
                                 <?= htmlspecialchars($post['content']) ?>
                             </p>
-                            <img src="<?= $post['image_url'] ?>" class="w-full rounded-lg" alt="Sunset">
+                            <?php if(!empty($post['image_url'])): ?>
+                                <img src="<?= $post['image_url'] ?>" class="w-full rounded-lg" alt="image du post de <?= $post['first_name'] ?>">
+                            <?php endif; ?>
                         </div>
 
                         <!-- Post Stats -->
