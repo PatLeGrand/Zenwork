@@ -34,12 +34,8 @@
                     }
 
                 }
-
-                return ['errors' => $errors, 'success' => $success];
-
             }
-
-
+            return ['errors' => $errors, 'success' => $success];
         }
 
         public function getPosts() {

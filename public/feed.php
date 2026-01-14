@@ -15,7 +15,7 @@
     $userFullName = $firstname.' '.$lastname;
 
     $controller = new PostController();
-    $createResult = $controller->createPost('$user_id');
+    $createResult = $controller->createPost($user_id);
     $posts = $controller->getPosts()
 ?>
 
@@ -126,34 +126,46 @@
                     <img src="https://ui-avatars.com/api/?name=<?= $firstname ?>+<?= $lastname ?>&background=3b82f6&color=fff" class="w-12 h-12 rounded-full">
                     <div class="flex-1">
                             <form method="POST" action="">
+                                <?php
+                                    if(!empty($createResult['errors'])): ?>
+                                        <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-2 rounded mb-3">
+                                            <?= $createResult['errors'] ?>
+                                        </div>
+                                <?php endif; ?>
+                                <?php if($createResult['success']): ?>
+                                    <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-2 rounded mb-3">
+                                        <span>Post Crée avec succès</span>
+                                    </div>
+                                <?php endif; ?>
+
                                 <textarea
                                         placeholder="Quoi de neuf, <?= $firstname ?> ?"
                                         class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 resize-none"
                                         rows="3"
                                         name="content"
                                 ></textarea>
+
+                                <div class="flex items-center justify-between mt-3">
+                                    <div class="flex space-x-2">
+                                        <!-- Input file caché -->
+                                        <input type="file" id="image-upload" name="image_url" accept="image/*" class="hidden">
+
+                                        <!-- Bouton qui déclenche l'input -->
+                                        <label for="image-upload" class="p-2 hover:bg-gray-100 rounded-full cursor-pointer" title="Ajouter une image">
+                                            <svg class="w-6 h-6 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+                                            </svg>
+                                        </label>
+
+                                        <!-- Prévisualisation du nom de fichier (optionnel) -->
+                                        <span id="file-name" class="text-sm text-gray-500 self-center"></span>
+                                    </div>
+
+                                    <button type="submit" class="px-6 py-2 bg-blue-600 text-white rounded-lg font-medium hover:bg-blue-700 transition">
+                                        Publier
+                                    </button>
+                                </div>
                             </form>
-
-
-                        <div class="flex items-center justify-between mt-3">
-                            <div class="flex space-x-2">
-                                <button class="p-2 hover:bg-gray-100 rounded-full" title="Ajouter une image">
-                                    <svg class="w-6 h-6 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
-                                    </svg>
-                                </button>
-
-                                <button class="p-2 hover:bg-gray-100 rounded-full" title="Ajouter un emoji">
-                                    <svg class="w-6 h-6 text-yellow-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.828 14.828a4 4 0 01-5.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                                    </svg>
-                                </button>
-                            </div>
-
-                            <button class="px-6 py-2 bg-blue-600 text-white rounded-lg font-medium hover:bg-blue-700 transition">
-                                Publier
-                            </button>
-                        </div>
                     </div>
                 </div>
             </div>
