@@ -58,6 +58,8 @@
                     $result = $this->postModel->create($userId, $content, $imagePath);
                     if ($result) {
                         $success = true;
+
+                        header('Location: feed.php');
                     }
                     else {
                         $errors = 'Une erreur est survenue';
