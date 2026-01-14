@@ -207,7 +207,7 @@
                         <!-- Post Content -->
                         <div class="px-4 pb-4">
                             <p class="text-gray-800 leading-relaxed">
-                                <?= htmlspecialchars($post['content']) ?>
+                                <?= $post['content'] ?>
                             </p>
                             <?php if(!empty($post['image_url'])): ?>
                                 <img src="<?= $post['image_url'] ?>" class="w-full rounded-lg" alt="image du post de <?= $post['first_name'] ?>">

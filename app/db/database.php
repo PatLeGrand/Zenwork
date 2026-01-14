@@ -14,6 +14,8 @@
             try{
                 $this->conn = new PDO($dsn, $user, $password);
                 $this->conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+                $this->conn->exec("SET NAMES 'UTF8'");
             } catch (PDOException $e) {
                 die("Connection failed: " . $e->getMessage());
             }
