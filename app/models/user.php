@@ -56,6 +56,39 @@
 
 
         }
+        public function searchUsers($query, $excludeId = null) {
+            $query = trim($query);
+            if(empty($query)){
+                return [];
+            }
+            $searchTerm = '%' .$query. '%';
+
+            $sql = "SELECT id, first_name, last_name
+                    FROM users 
+                    WHERE (first_name ILIKE ? 
+                       OR last_name ILIKE ? )
+                    ";
+
+            if($excludeId){
+                $sql .= " AND id != ?";
+            }
+
+            $sql .= " Limit 10";
+
+            try {
+                $stmt = $this->db->prepare($sql);
+                if($excludeId){
+                    $stmt->execute([$searchTerm, $searchTerm, $excludeId]);
+                } else {
+                    $stmt->execute([$searchTerm, $searchTerm]);
+                }
+
+                return $stmt->fetchAll(PDO::FETCH_ASSOC);
+            } catch (PDOException $e) {
+                return [];
+            }
+
+        }
     }
 
 ?>
