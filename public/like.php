@@ -15,8 +15,8 @@
         exit();
     }
 
-    $user_id = $_SESSION["user_id"];
-    $postId = $_POST['postId'] ?? null;
+    $user_id = $_SESSION['user_id'];
+    $postId = $_POST['post_id'] ?? null;
 
     if(!$postId) {
         http_response_code(400);
@@ -24,8 +24,13 @@
         exit();
     }
 
-    $controller = new LikeController();
-    $likeCount = $controller->likeToggle($postId, $user_id);
 
-    echo $likeCount . "j'aime" . ($likeCount > 1 ? "s" : "");
+
+    $controller = new LikeController();
+
+    $likeCount = $controller->likeToggle($user_id, $postId);
+
+
+
+    echo $likeCount . "👍 j'aime" . ($likeCount > 1 ? "s" : "");
 ?>

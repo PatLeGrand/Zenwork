@@ -16,7 +16,7 @@
 
     $controller = new PostController();
     $createResult = $controller->createPost($user_id);
-    $posts = $controller->getPosts()
+    $posts = $controller->getPosts();
 ?>
 
 <!DOCTYPE html>
@@ -26,6 +26,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Feed - Réseau Social</title>
     <link href="css/output.css" rel="stylesheet">
+    <script src="https://unpkg.com/htmx.org@2.0.4"></script>
 </head>
 <body class="bg-gray-100">
 
@@ -216,7 +217,14 @@
 
                         <!-- Post Stats -->
                         <div class="px-4 py-2 border-t border-b border-gray-200 flex items-center justify-between text-sm text-gray-500">
-                            <span>❤️ 👍 24 personnes</span>
+                            <span id="like-count-<?= $post['id'] ?>">
+                                <?php
+                                    require_once __DIR__ . '/../app/models/Like.php';
+                                    $likeModel = new Like();
+                                    $likesCount = $likeModel->getLikesCount($post['id']);
+                                    echo $likesCount . "👍 j'aime" . ($likesCount > 1 ? "s" : "");
+                                ?>
+                            </span>
                             <div class="flex space-x-4">
                                 <span>12 commentaires</span>
                                 <span>3 partages</span>
@@ -225,7 +233,13 @@
 
                         <!-- Post Actions -->
                         <div class="px-4 py-2 flex items-center justify-around">
-                            <button class="flex items-center space-x-2 px-4 py-2 hover:bg-gray-100 rounded-lg transition">
+                            <button
+                                    hx-post="like.php"
+                                    hx-vals='{"post_id": <?= $post['id'] ?>}'
+                                    hx-target="#like-count-<?= $post['id'] ?>"
+                                    hx-swap="innerHTML"
+                                    class="flex items-center space-x-2 px-4 py-2 hover:bg-gray-100 rounded-lg transition"
+                            >
                                 <svg class="w-5 h-5 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path>
                                 </svg>
