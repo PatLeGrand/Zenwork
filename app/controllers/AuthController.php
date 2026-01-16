@@ -1,5 +1,5 @@
 <?php
-    require_once __DIR__ . '/../models/User.php';
+    require_once __DIR__ . '/../models/user.php';
     require_once __DIR__ . '/../utils/validation.php';
 
 
@@ -7,7 +7,7 @@
         private $userModel;
 
         public function __construct(){
-            $this->userModel = new User();
+            $this->userModel = new user();
         }
 
         function register(){

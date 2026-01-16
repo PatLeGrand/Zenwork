@@ -1,6 +1,6 @@
 <?php
     require_once __DIR__ . "/../db/database.php";
-    class User{
+    class user{
         private $db;
 
         public function __construct(){
