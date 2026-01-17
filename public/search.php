@@ -20,7 +20,7 @@ $result = $userModel->searchUsers($query);
 if (empty($result)) {
     echo '<p class="p-4 text-gray-500">Aucun résultat trouvé</p>';
 } else {
-    foreach ($results as $user) {
+    foreach ($result as $user) {
         ?>
         <div class="p-3 hover:bg-gray-50 border-b flex items-center justify-between">
             <div class="flex items-center space-x-3">
