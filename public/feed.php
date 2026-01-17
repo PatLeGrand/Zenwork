@@ -42,12 +42,31 @@
             </div>
 
             <!-- Search Bar -->
-            <div class="hidden md:block flex-1 max-w-md mx-8">
+            <div class="hidden md:block flex-1 max-w-md mx-8 relative">
                 <input
                         type="text"
-                        placeholder="Rechercher..."
+                        name="q"
+                        placeholder="Rechercher des utilisateurs"
+                        hx-get="search.php"
+                        hx-trigger="keyup changed delay:500ms"
+                        hx-target="#search-results"
+                        hx-indicator="#search-loading"
                         class="w-full px-4 py-2 rounded-full bg-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500"
                 >
+            </div>
+
+
+            <!-- Indicator loading -->
+            <div id="search-loading" class="htmx-indicator absolute right-3 top-3" >
+                <svg class="animate-spin h-5 w-5 text-gray-500" fill="none" viewBox="0 0 24 24">
+                    <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                    <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                </svg>
+            </div>
+
+            <!-- Résultat de recherche -->
+            <div id="search-results" class="absolute top-full left-0 right-0 mt-2 bg-white rounded-lg shadow-lg max-h-96 overflow-y-auto z-50">
+                <!-- Resulats de la recherche -->
             </div>
 
             <!-- User Menu -->
